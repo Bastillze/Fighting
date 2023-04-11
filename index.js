@@ -14,7 +14,10 @@ class Sprite {
   constructor({position, velocity}) {
     this.position = position;
     this.velocity = velocity;
+<<<<<<< HEAD
     this.height = 150
+=======
+>>>>>>> f4ba0a88518935c4090a261f47d9a0029371d0d2
   }
 
   draw() {
@@ -31,6 +34,11 @@ class Sprite {
       this.velocity.y = 0;
      }
 
+  }
+
+  update() {
+    this.draw()
+    this.position.y += 10
   }
 }
 
@@ -64,8 +72,11 @@ console.log(player);
 
 function animate() {
   window.requestAnimationFrame(animate);
+<<<<<<< HEAD
   c.fillStyle = 'black';
   c.fillRect(0, 0, canvas.width, canvas.height)
+=======
+>>>>>>> f4ba0a88518935c4090a261f47d9a0029371d0d2
   player.update()
   enemy.update()
 }
