@@ -11,17 +11,21 @@ const gravity = 0.7;
 
 
 class Sprite {
-  constructor({position, velocity, color = 'red'}) {
+  constructor({position, velocity, color = 'red', offset}) {
     this.position = position;
     this.velocity = velocity;
     this.lastKey
     this.width = 50
     this.height = 150
     this.attackBox = {
-      position: this.position ,
+      position: {
+      x:this.position.x ,
+      y:this.position.y
+    },
+    offset,
       width: 100,
-      height: 50 ,
-    }
+      height: 50  
+    },     
    this.color = color
    this.isAttacking
   }
@@ -39,6 +43,9 @@ class Sprite {
 
   update() {
     this.draw()
+    this.attackBox.position.x = this.position.x - this.attackBox.offset.x
+    this.attackBox.position.y = this.position.y
+
     this.position.x += this.velocity.x
     this.position.y += this.velocity.y
 
@@ -68,6 +75,10 @@ const player = new Sprite({
 velocity:{
   x: 0,
   y: 0
+},
+offset: {
+  x:0,
+  y:0
 }
 });
 
@@ -81,7 +92,11 @@ velocity:{
   x:0,
   y:0
 },
-color: 'blue'
+color: 'blue',
+offset: {
+  X: -50,
+  y:0
+}
 });
 
 enemy.draw();
@@ -107,6 +122,16 @@ const keys = {
 }
 
 let lastKey
+
+function rectangularCollision(rectangle1, rectangle2) {
+  return (
+    rectangle1.attackBox.position.x + rectangle1.attackBox.width >= rectangle2.position.x && rectangle1.attackBox.position.x <= rectangle2.position.x + rectangle2.width
+    && rectangle1.attackBox.position.y + rectangle1.attackBox.height >= rectangle2.position.y
+    && rectangle1.attackBox.position.y <= rectangle2.position.y + rectangle2.height
+    && rectangle1.isAttacking
+  )
+}
+
 
 function animate() {
   window.requestAnimationFrame(animate);
@@ -135,9 +160,7 @@ function animate() {
    }
 
   //Collision Detection
-  if(player.attackBox.position.x + player.attackBox.width >= enemy.position.x && player.attackBox.position.x <= enemy.position.x + enemy.width
-    && player.attackBox.position.y + player.attackBox.height >= enemy.position.y
-    && player.attackBox.position.y <= enemy.position.y + enemy.height
+  if( rectangularCollision()
     && player.isAttacking){
       player.isAttacking = false
     console.log('go');
