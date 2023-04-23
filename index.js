@@ -160,7 +160,10 @@ function animate() {
    }
 
   //Collision Detection
-  if( rectangularCollision()
+  if( rectangularCollision({
+    rectangle1: player,
+    rectangle2: enemy
+  })
     && player.isAttacking){
       player.isAttacking = false
     console.log('go');
