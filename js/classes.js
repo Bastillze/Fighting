@@ -78,7 +78,7 @@ class Sprite {
      this.framesHold = 10
      this.sprites = sprites
 
-     for(const sprite in sprites) {
+     for(const sprite in this.sprites) {
       sprites[sprite].image = new Image()
       sprites[sprite].image.src = sprites[sprite].imageSrc
      }
