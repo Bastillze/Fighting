@@ -64,6 +64,7 @@ sprites: {
     framesMax: 8
   },
   jump: {
+
     imageSrc: './Martial Hero/Sprites/Jump.png',
     framesMax: 2
   },
@@ -76,6 +77,9 @@ sprites: {
    attack1: {
     imageSrc: './Martial Hero/Sprites/Attack1.png',
     framesMax: 6
+
+    
+
   }
 }
 });
@@ -169,7 +173,11 @@ function animate() {
    
    if (keys.a.pressed && player.lastKey === 'a') {
     player.velocity.x = -5
+
     player.switchSprite('run')
+
+    player.image = player.sprites.run.image
+
    } else if (keys.ArrowRight.pressed && enemy.lastKey ==='ArrowRight') {
     enemy.velocity.x = 5
     player.switchSprite('run')
@@ -183,6 +191,11 @@ function animate() {
    } else if (player.velocity.y > 0) {
     player.switchSprite('fall')
    }
+
+
+
+   if(player.velocity.y < 0) {}
+
 
 
    //Enemy Movement
