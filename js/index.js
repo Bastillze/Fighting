@@ -129,6 +129,8 @@ enemy.draw();
 
 console.log(player);
 
+
+
 const keys = {
   a: {
     pressed: false
@@ -178,8 +180,8 @@ function animate() {
 
     player.image = player.sprites.run.image
 
-   } else if (keys.ArrowRight.pressed && enemy.lastKey ==='ArrowRight') {
-    enemy.velocity.x = 5
+   } else if (keys.d.pressed && player.lastKey ==='d') {
+    player.velocity.x = 5
     player.switchSprite('run')
    } else {
     player.switchSprite('idle')
@@ -201,9 +203,10 @@ function animate() {
    //Enemy Movement
    if (keys.ArrowLeft.pressed && enemy.lastKey === 'ArrowLeft') {
     enemy.velocity.x = -5
-   } else if (keys.d.pressed && player.lastKey ==='d') {
-    player.velocity.x = 5
-    player.image = player.sprites.run.image
+    enemy.switchSprite('run')
+   } else if (keys.ArrowRight.pressed && enemy.lastKey ==='ArrowRight') {
+    enemy.velocity.x = 5
+    enemy.image = enemy.sprites.run.image
    }
 
   //Collision Detection
