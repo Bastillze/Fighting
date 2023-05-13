@@ -62,6 +62,20 @@ sprites: {
   run: {
     imageSrc: './Martial Hero/Sprites/Run.png',
     framesMax: 8
+  },
+  jump: {
+    imageSrc: './Martial Hero/Sprites/Jump.png',
+    framesMax: 2
+  },
+
+  fall: {
+    imageSrc: './Martial Hero/Sprites/Fall.png',
+    framesMax: 2
+  },
+
+   attack1: {
+    imageSrc: './Martial Hero/Sprites/Attack1.png',
+    framesMax: 6
   }
 }
 });
@@ -80,6 +94,30 @@ color: 'blue',
 offset: {
   X: -50,
   y:0
+},
+sprites: {
+  idle: {
+    imageSrc: './Martial Hero 2/Sprites/Idle.png',
+    framesMax: 8
+  },
+  run: {
+    imageSrc: './Martial Hero 2/Sprites/Run.png',
+    framesMax: 8
+  },
+  jump: {
+    imageSrc: './Martial Hero 2/Sprites/Jump.png',
+    framesMax: 2
+  },
+
+  fall: {
+    imageSrc: './Martial Hero 2/Sprites/Fall.png',
+    framesMax: 2
+  },
+
+   attack2: {
+    imageSrc: './Martial Hero 2/Sprites/Attack2.png',
+    framesMax: 4
+  }
 }
 });
 
@@ -128,19 +166,31 @@ function animate() {
    enemy.velocity.x = 0;
 
    // Player Movement
-   player.image = player.sprites.idle.image
+   
    if (keys.a.pressed && player.lastKey === 'a') {
     player.velocity.x = -5
-    player.image = player.sprites.idle.image
+    player.switchSprite('run')
    } else if (keys.ArrowRight.pressed && enemy.lastKey ==='ArrowRight') {
     enemy.velocity.x = 5
+    player.switchSprite('run')
+   } else {
+    player.switchSprite('idle')
    }
+
+   // Player Jump
+   if(player.velocity.y < 0) {
+    player.switchSprite('jump')
+   } else if (player.velocity.y > 0) {
+    player.switchSprite('fall')
+   }
+
+
    //Enemy Movement
    if (keys.ArrowLeft.pressed && enemy.lastKey === 'ArrowLeft') {
     enemy.velocity.x = -5
    } else if (keys.d.pressed && player.lastKey ==='d') {
     player.velocity.x = 5
-    player.image = player/sprites.run/image
+    player.image = player.sprites.run.image
    }
 
   //Collision Detection
