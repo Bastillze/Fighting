@@ -32,7 +32,7 @@ const shop = new Sprite({
 })
 
 
-
+//Player1
 
 const player = new Fighter({
   position:{
@@ -76,6 +76,16 @@ sprites: {
 
    attack1: {
     imageSrc: './Martial Hero/Sprites/Attack1.png',
+    framesMax: 6
+  },
+
+  takeHit: {
+    imageSrc:'./Martial Hero/Sprites/Take Hit.png',
+    framesMax: 4
+  },
+
+  death:{
+    imageSrc:'./Martial Hero/Sprites/Death.png',
     framesMax: 6
   }
 },
@@ -128,6 +138,16 @@ sprites: {
    attack2: {
     imageSrc: './Martial Hero 2/Sprites/Attack2.png',
     framesMax: 4
+  },
+
+  takeHit: {
+    imageSrc: './Martial Hero 2/Sprites/Take hit.png',
+    framesMax: 3
+  },
+
+  death:{
+    imageSrc:'./Martial Hero 2/Sprites/Death.png',
+    framesMax: 7
   }
 },
 
@@ -139,7 +159,7 @@ attackBox: {
   },
   width: 140,
   height: 50
-}
+},
 
 
 });
@@ -235,8 +255,9 @@ function animate() {
     rectangle2: enemy
   }) && 
   player.isAttacking && player.framesCurrent === 4){
+      enemy.takeHit()
       player.isAttacking = false
-      enemy.health -= 20
+      
    document.querySelector('#enemyHealth').style.width =enemy.health + '%'
     }
 
@@ -252,8 +273,8 @@ function animate() {
     rectangle2: player
   }) && 
   enemy.isAttacking && enemy.framesCurrent === 2){
+      player.takeHit()
       enemy.isAttacking = false
-      player.health -= 20
       document.querySelector('#playerHealth').style.width =player.health + '%'
     
 
@@ -277,6 +298,8 @@ animate();
 
 
 window.addEventListener('keydown', (event) => {
+
+  if(!player.dead) {
   
   switch(event.key) {
     case 'd':
@@ -292,9 +315,13 @@ window.addEventListener('keydown', (event) => {
       break
       case ' ':
         player.attack()
-      break
-
-      case 'ArrowRight':
+      break 
+  }
+}
+  
+if(!enemy.dead) {
+  switch(event.key) {
+    case 'ArrowRight':
         keys.ArrowRight.pressed = true;
         enemy.lastKey = 'ArrowRight'
         break
@@ -308,10 +335,8 @@ window.addEventListener('keydown', (event) => {
         case 'ArrowDown':
          enemy.isAttacking = true;
            break
-   
-
   }
-  
+}
 })
 
 window.addEventListener('keyup', (event) => {
