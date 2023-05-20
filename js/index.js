@@ -118,35 +118,35 @@ offset: {
 },
 sprites: {
   idle: {
-    imageSrc: './Martial Hero 2/Sprites/Idle.png',
+    imageSrc: './Martial Hero_2/Sprites/Idle.png',
     framesMax: 8
   },
   run: {
-    imageSrc: './Martial Hero 2/Sprites/Run.png',
+    imageSrc: './Martial Hero_2/Sprites/Run.png',
     framesMax: 8
   },
   jump: {
-    imageSrc: './Martial Hero 2/Sprites/Jump.png',
+    imageSrc: './Martial Hero_2/Sprites/Jump.png',
     framesMax: 2
   },
 
   fall: {
-    imageSrc: './Martial Hero 2/Sprites/Fall.png',
+    imageSrc: './Martial Hero_2/Sprites/Fall.png',
     framesMax: 2
   },
 
    attack2: {
-    imageSrc: './Martial Hero 2/Sprites/Attack2.png',
+    imageSrc: './Martial Hero_2/Sprites/Attack2.png',
     framesMax: 4
   },
 
   takeHit: {
-    imageSrc: './Martial Hero 2/Sprites/Take hit.png',
+    imageSrc: './Martial Hero_2/Sprites/Take hit.png',
     framesMax: 3
   },
 
   death:{
-    imageSrc:'./Martial Hero 2/Sprites/Death.png',
+    imageSrc:'./Martial Hero_2/Sprites/Death.png',
     framesMax: 7
   }
 },
@@ -259,6 +259,7 @@ function animate() {
       player.isAttacking = false
       
    document.querySelector('#enemyHealth').style.width =enemy.health + '%'
+   WebGLSampler.to('#enemyHealth', {width: enemy.health + '%'})
     }
 
    //If Player Misses
@@ -272,11 +273,12 @@ function animate() {
     rectangle1: enemy,
     rectangle2: player
   }) && 
-  enemy.isAttacking && enemy.framesCurrent === 2){
+  enemy.isAttacking && enemy.framesCurrent === 2) {
+
       player.takeHit()
       enemy.isAttacking = false
       document.querySelector('#playerHealth').style.width =player.health + '%'
-    
+      WebGLSampler.to('#playerHealth',{width: player.health + '%'} )
 
    //If Enemy Misses
    if (enemy.isAttacking && enemy.framesCurrent === 2) {
